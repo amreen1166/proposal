@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-<title>Special Proposal ❤️</title>
+<title>Proposal ❤️</title>
 
 <style>
 
@@ -23,7 +22,7 @@ overflow:hidden;
 }
 
 h1{
-font-size:40px;
+font-size:38px;
 color:#ff2e63;
 }
 
@@ -39,6 +38,7 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 margin:10px;
+transition:0.3s;
 }
 
 #yes{
@@ -49,19 +49,6 @@ color:white;
 #no{
 background:#333;
 color:white;
-position:absolute;
-}
-
-.heart{
-position:absolute;
-color:red;
-font-size:20px;
-animation:float 5s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh);opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
 }
 
 </style>
@@ -72,77 +59,75 @@ animation:float 5s linear infinite;
 
 <img id="bear" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
 
-<h1 id="question">Will you be my Valentine? ❤️</h1>
+<h1 id="question">Will you be my Baby, Darinling and Lover? ❤️</h1>
 
 <button id="yes">Yes</button>
 <button id="no">No</button>
 
 <script>
 
-const noBtn=document.getElementById("no");
-const yesBtn=document.getElementById("yes");
-const bear=document.getElementById("bear");
-const question=document.getElementById("question");
+let noCount = 0;
+let yesSize = 20;
 
-noBtn.addEventListener("mouseover",()=>{
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const bear = document.getElementById("bear");
+const question = document.getElementById("question");
 
-const x=Math.random()*window.innerWidth;
-const y=Math.random()*window.innerHeight;
+noBtn.addEventListener("click", () => {
 
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+noCount++;
+
+yesSize += 10;
+yesBtn.style.fontSize = yesSize + "px";
+yesBtn.style.padding = (15 + noCount*5) + "px " + (30 + noCount*10) + "px";
+
+bear.src="https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif"; // sad bear
+
+if(noCount == 1){
+question.innerText="No 😢";
+}
+
+else if(noCount == 2){
+question.innerText="Are you sure? 😭";
+}
+
+else if(noCount == 3){
+question.innerText="I will really be sad...";
+}
+
+else if(noCount == 4){
+question.innerText="I will be VERY sad 💔";
+
+noBtn.addEventListener("mouseover", runAway);
+
+}
 
 });
 
-yesBtn.addEventListener("click",()=>{
+function runAway(){
 
-bear.src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif";
+const x = Math.random()*window.innerWidth;
+const y = Math.random()*window.innerHeight;
 
-question.innerText="YAYYY ❤️ I knew you would say YES!!!";
+noBtn.style.position="absolute";
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
+
+}
+
+yesBtn.addEventListener("click", () => {
+
+bear.src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"; // happy bear
+
+question.innerText="YAYYYY ❤️ I knew you would say YES!!";
 
 yesBtn.style.display="none";
 noBtn.style.display="none";
 
-confetti();
-
 });
-
-function createHeart(){
-
-const heart=document.createElement("div");
-
-heart.classList.add("heart");
-
-heart.innerHTML="❤️";
-
-heart.style.left=Math.random()*100+"vw";
-
-heart.style.fontSize=(Math.random()*20+10)+"px";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>{
-
-heart.remove();
-
-},5000);
-
-}
-
-setInterval(createHeart,300);
-
-function confetti(){
-
-for(let i=0;i<100;i++){
-
-createHeart();
-
-}
-
-}
 
 </script>
 
 </body>
-
 </html>
