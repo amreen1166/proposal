@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -39,6 +38,7 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 margin:10px;
+transition:0.3s;
 }
 
 #yes{
@@ -78,83 +78,97 @@ animation:float 5s linear infinite;
 
 <script>
 
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const bear = document.getElementById("bear");
-const question = document.getElementById("question");
+const noBtn=document.getElementById("no");
+const yesBtn=document.getElementById("yes");
+const bear=document.getElementById("bear");
+const question=document.getElementById("question");
 
-function moveButton(){
+let noCount=0;
+let yesSize=20;
 
-const maxX = window.innerWidth - noBtn.offsetWidth;
-const maxY = window.innerHeight - noBtn.offsetHeight;
+function runAway(){
 
-const randomX = Math.floor(Math.random() * maxX);
-const randomY = Math.floor(Math.random() * maxY);
+const maxX=window.innerWidth-noBtn.offsetWidth;
+const maxY=window.innerHeight-noBtn.offsetHeight;
 
-noBtn.style.left = randomX + "px";
-noBtn.style.top = randomY + "px";
+const randomX=Math.floor(Math.random()*maxX);
+const randomY=Math.floor(Math.random()*maxY);
+
+noBtn.style.left=randomX+"px";
+noBtn.style.top=randomY+"px";
 
 }
 
-/* Laptop hover */
-noBtn.addEventListener("mouseover", () => {
+noBtn.addEventListener("click",()=>{
 
-bear.src = "images/sad.gif";
-moveButton();
+noCount++;
+
+bear.src="images/sad.gif";
+
+yesSize+=10;
+yesBtn.style.fontSize=yesSize+"px";
+
+if(noCount==1){
+question.innerText="No 😢";
+}
+
+else if(noCount==2){
+question.innerText="Are you sure? 😭";
+}
+
+else if(noCount==3){
+question.innerText="Please think again 🥺";
+}
+
+else if(noCount==4){
+question.innerText="I will be VERY sad 💔";
+}
+
+else if(noCount>=5){
+question.innerText="Okay fine 😭 try to catch No!";
+runAway();
+}
 
 });
 
-/* Phone touch */
-noBtn.addEventListener("touchstart", function(e){
+noBtn.addEventListener("touchstart",function(e){
 
+if(noCount>=5){
 e.preventDefault();
-
-bear.src = "images/sad.gif";
-moveButton();
-
-});
-
-/* Backup click */
-noBtn.addEventListener("click", () => {
-
-bear.src = "images/sad.gif";
-moveButton();
+runAway();
+}
 
 });
 
-yesBtn.addEventListener("click", () => {
+yesBtn.addEventListener("click",()=>{
 
-bear.src = "images/happy.gif";
+bear.src="images/happy.gif";
 
-question.innerText = "Yay ❤️ I knew you would say YES!!!";
+question.innerText="Yay ❤️ I knew you would say YES!!!";
 
-yesBtn.style.display = "none";
-noBtn.style.display = "none";
+yesBtn.style.display="none";
+noBtn.style.display="none";
 
 confetti();
 
 });
 
-/* Floating hearts */
-
 function createHeart(){
 
-const heart = document.createElement("div");
+const heart=document.createElement("div");
 
 heart.classList.add("heart");
 
-heart.innerHTML = "❤️";
+heart.innerHTML="❤️";
 
-heart.style.left = Math.random() * 100 + "vw";
+heart.style.left=Math.random()*100+"vw";
 
-heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+heart.style.fontSize=(Math.random()*20+10)+"px";
 
 document.body.appendChild(heart);
 
-setTimeout(() => {
-
+setTimeout(()=>{
 heart.remove();
-
 },5000);
 
 }
@@ -164,9 +178,7 @@ setInterval(createHeart,300);
 function confetti(){
 
 for(let i=0;i<100;i++){
-
 createHeart();
-
 }
 
 }
@@ -174,5 +186,4 @@ createHeart();
 </script>
 
 </body>
-
 </html>
